@@ -3,8 +3,8 @@ import fs from 'fs'
 import path from 'path'
 import { execSync } from 'child_process'
 
-const folder = process.argv[2] 
-const rawFile = process.argv[3] 
+const folder = process.argv[2]        // admin
+const rawFile = process.argv[3]       // user.router
 
 if (!folder || !rawFile) {
   console.error('❌ Usage: gen:route <folder> <file>')
@@ -13,8 +13,8 @@ if (!folder || !rawFile) {
 
 // ===== PARSE FILE =====
 const parts = rawFile.split('.')
-const name = parts[0]   
-const suffix = parts.slice(1).join('.') 
+const name = parts[0]                 // user
+const suffix = parts.slice(1).join('.') // router
 
 const routePath = `/${folder}/${name}`
 
