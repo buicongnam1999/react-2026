@@ -1,3 +1,3 @@
 export default function UserPage() {
-  return <div>/admin/user</div>
+  return <div>user page</div>
 }

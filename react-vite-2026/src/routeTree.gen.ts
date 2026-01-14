@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AdminUserPageRouteImport } from './routes/admin/user.page'
+import { Route as AdminPostPageRouteImport } from './routes/admin/post.page'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -22,30 +23,39 @@ const AdminUserPageRoute = AdminUserPageRouteImport.update({
   path: '/admin/user/page',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdminPostPageRoute = AdminPostPageRouteImport.update({
+  id: '/admin/post/page',
+  path: '/admin/post/page',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/admin/post/page': typeof AdminPostPageRoute
   '/admin/user/page': typeof AdminUserPageRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/admin/post/page': typeof AdminPostPageRoute
   '/admin/user/page': typeof AdminUserPageRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/admin/post/page': typeof AdminPostPageRoute
   '/admin/user/page': typeof AdminUserPageRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/admin/user/page'
+  fullPaths: '/' | '/admin/post/page' | '/admin/user/page'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/admin/user/page'
-  id: '__root__' | '/' | '/admin/user/page'
+  to: '/' | '/admin/post/page' | '/admin/user/page'
+  id: '__root__' | '/' | '/admin/post/page' | '/admin/user/page'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AdminPostPageRoute: typeof AdminPostPageRoute
   AdminUserPageRoute: typeof AdminUserPageRoute
 }
 
@@ -65,11 +75,19 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminUserPageRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admin/post/page': {
+      id: '/admin/post/page'
+      path: '/admin/post/page'
+      fullPath: '/admin/post/page'
+      preLoaderRoute: typeof AdminPostPageRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AdminPostPageRoute: AdminPostPageRoute,
   AdminUserPageRoute: AdminUserPageRoute,
 }
 export const routeTree = rootRouteImport

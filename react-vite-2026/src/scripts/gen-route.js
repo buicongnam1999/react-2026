@@ -1,85 +1,106 @@
-// scripts/gen-route.js
-import fs from 'fs'
-import path from 'path'
-import { execSync } from 'child_process'
+import fs from "fs"
+import path from "path"
 
-const folder = process.argv[2]        // admin
-const rawFile = process.argv[3]       // user.router
+const args = process.argv.slice(2)
 
-if (!folder || !rawFile) {
-  console.error('❌ Usage: gen:route <folder> <file>')
+if (args.length === 0) {
+  console.error("❌ Usage:")
+  console.error("1:  npm run router:gen post")
+  console.error("2:  npm run router:gen admin post")
+  console.error("3:  npm run router:gen admin/post post-new")
   process.exit(1)
 }
 
-// ===== PARSE FILE =====
-const parts = rawFile.split('.')
-const name = parts[0]                 // user
-const suffix = parts.slice(1).join('.') // router
+const routesRoot = path.resolve("src/routes")
+const pagesRoot = path.resolve("src/pages")
 
-const routePath = `/${folder}/${name}`
+let pathParts = []
+let name = ""
+let isNestedPage = false
 
-// ===== PATHS =====
-const routesDir = path.resolve('src/routes')
-const pagesDir = path.resolve('src/pages')
+// CASE 1: post
+if (args.length === 1) {
+  name = args[0]
+}
 
-const routeFolderDir = path.join(routesDir, folder)
-const pageFolderDir = path.join(pagesDir, folder, name)
+// CASE 2: admin post
+if (args.length === 2 && !args[0].includes("/")) {
+  pathParts = [args[0]]
+  name = args[1]
+}
 
-// ===== CREATE ROUTE FILE =====
-fs.mkdirSync(routeFolderDir, { recursive: true })
+// CASE 3: admin/post post-new
+if (args.length === 2 && args[0].includes("/")) {
+  pathParts = args[0].split("/")
+  name = args[1]
+  isNestedPage = true
+}
 
-const routeFilePath = path.join(
-  routeFolderDir,
-  `${name}.${suffix}.tsx`
-)
+/* ================= ROUTES ================= */
 
-const componentName =
-  pascalCase(name) + pascalCase(suffix)
+const routeDir = path.join(routesRoot, ...pathParts)
+fs.mkdirSync(routeDir, { recursive: true })
 
-const pageComponentImport = `@/pages/${folder}/${name}`
+const routeFileName = isNestedPage
+  ? `${name}.route.tsx`
+  : `${name}.route.tsx`
 
-const routeContent = `import { createFileRoute } from '@tanstack/react-router'
-import ${componentName} from '${pageComponentImport}'
+const routeFile = path.join(routeDir, routeFileName)
 
-export const Route = createFileRoute('${routePath}')({
-  component: ${componentName},
+// path import page
+const pageImportPath = isNestedPage
+  ? `@/pages/${[...pathParts, name].join("/")}`
+  : `@/pages/${[...pathParts, name].join("/")}`
+
+const routeUrl = "/" + [...pathParts, name].join("/")
+
+if (!fs.existsSync(routeFile)) {
+  fs.writeFileSync(
+    routeFile,
+    `import { createFileRoute } from "@tanstack/react-router"
+import Page from "${pageImportPath}"
+
+export const Route = createFileRoute("${routeUrl}")({
+  component: Page,
 })
 `
+  )
+}
 
-fs.writeFileSync(routeFilePath, routeContent)
+/* ================= PAGES ================= */
 
-// ===== CREATE PAGE FOLDER =====
-fs.mkdirSync(pageFolderDir, { recursive: true })
+let pageDir = ""
+let pageFile = ""
 
-// index.tsx
-fs.writeFileSync(
-  path.join(pageFolderDir, 'index.tsx'),
-  `export default function ${componentName}() {
-  return <div>${routePath}</div>
+if (isNestedPage) {
+  pageDir = path.join(pagesRoot, ...pathParts)
+  pageFile = path.join(pageDir, `${name}.tsx`)
+} else {
+  pageDir = path.join(pagesRoot, ...pathParts, name)
+  pageFile = path.join(pageDir, "index.tsx")
+}
+
+fs.mkdirSync(pageDir, { recursive: true })
+
+if (!fs.existsSync(pageFile)) {
+  fs.writeFileSync(
+    pageFile,
+    `export default function ${toPascalCase(name)}Page() {
+  return <div>${name} page</div>
 }
 `
-)
-
-// hook example
-fs.writeFileSync(
-  path.join(pageFolderDir, `${name}.hook.ts`),
-  `export function use${pascalCase(name)}() {
-  return {}
+  )
 }
-`
-)
 
-// ===== GENERATE ROUTE TREE =====
-console.log('🔄 Generating routeTree.gen.ts...')
-execSync('npx tanstack-router generate', { stdio: 'inherit' })
+console.log("✅ Generated & linked:")
+console.log(routeFile)
+console.log(pageFile)
 
-console.log(`✅ Route + page created for ${routePath}`)
+/* ================= UTILS ================= */
 
-// ===== UTILS =====
-function pascalCase(str) {
+function toPascalCase(str) {
   return str
-    .split(/[-_.]/)
-    .filter(Boolean)
-    .map(s => s.charAt(0).toUpperCase() + s.slice(1))
-    .join('')
+    .split("-")
+    .map((s) => s.charAt(0).toUpperCase() + s.slice(1))
+    .join("")
 }
