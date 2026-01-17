@@ -307,3 +307,71 @@ src/
 
 // Clear cache
 rmdir /s /q node_modules\.vite
+
+
+
+
+
+
+
+
+
+
+
+
+
+/https://chatgpt.com/backend-anon/f/conversation
+{
+    "action": "next",
+    "messages": [
+        {
+            "id": "fced88e4-c24e-46e3-a64c-35a7891fe7a5",
+            "author": {
+                "role": "user"
+            },
+            "create_time": 1768581097.4,
+            "content": {
+                "content_type": "text",
+                "parts": [
+                    "tạo cho tôi 1 cái menu đa cấp bằng shdcn được không"
+                ]
+            },
+            "metadata": {
+                "selected_github_repos": [],
+                "selected_all_github_repos": false,
+                "serialization_metadata": {
+                    "custom_symbol_offsets": []
+                }
+            }
+        }
+    ],
+    "conversation_id": "696a4306-ecc8-8320-a937-d4497d1ef282",
+    "parent_message_id": "e2d615fa-ab18-43b4-b503-83fd49bdbb4c",
+    "model": "auto",
+    "timezone_offset_min": -420,
+    "timezone": "Asia/Bangkok",
+    "conversation_mode": {
+        "kind": "primary_assistant"
+    },
+    "enable_message_followups": true,
+    "system_hints": [],
+    "supports_buffering": true,
+    "supported_encodings": [
+        "v1"
+    ],
+    "client_contextual_info": {
+        "is_dark_mode": false,
+        "time_since_loaded": 9462,
+        "page_height": 911,
+        "page_width": 1337,
+        "pixel_ratio": 1,
+        "screen_height": 1080,
+        "screen_width": 1920,
+        "app_name": "chatgpt.com"
+    },
+    "paragen_cot_summary_display_override": "allow",
+    "force_parallel_switch": "auto"
+}
+
+report-to
+{"endpoints":[{"url":"https:\/\/a.nel.cloudflare.com\/report\/v4?s=jv2SVRFglgZlZGIJYGteqA5ecWAJRY1OisOZjHWia3kQ5UA41yovDbhm%2B69wbm4OsqpJr0w0LYmJqHuHsu7g6tcRcQvQfaeWUjOffsHK%2BOvp3pDsio2ZETKIxImZ"}],"group":"cf-nel","max_age":604800}

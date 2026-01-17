@@ -1,13 +1,6 @@
-export type Post = {
-  id: number
-  title: string
-  body: string
-}
+import { api } from "@/config/ky-config"
+import type { Post, PostSearch } from "@/models/admin/post.model";
 
-export const fetchPosts = async (): Promise<Post[]> => {
-  const res = await fetch("https://jsonplaceholder.typicode.com/posts")
-  if (!res.ok) {
-    throw new Error("Failed to fetch posts")
-  }
-  return res.json()
+export const fetchPosts = async (search: PostSearch): Promise<Post[]> => {
+  return await api.get(`posts?limit=${search.pageSize}`).json();
 }

@@ -1,0 +1,17 @@
+[
+  {
+    "name": "admin",
+    "children": [
+      {
+        "name": "post",
+        "children": null,
+        "link": "/admin/post/page"
+      },
+      {
+        "name": "user",
+        "children": null,
+        "link": "/admin/user/page"
+      }
+    ]
+  }
+]
