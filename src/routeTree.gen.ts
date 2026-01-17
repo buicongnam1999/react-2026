@@ -10,53 +10,53 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as AdminUserPageRouteImport } from './routes/admin/user.page'
-import { Route as AdminPostPageRouteImport } from './routes/admin/post.page'
+import { Route as AdminUserRouteRouteImport } from './routes/admin/user.route'
+import { Route as AdminPostRouteRouteImport } from './routes/admin/post.route'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const AdminUserPageRoute = AdminUserPageRouteImport.update({
-  id: '/admin/user/page',
-  path: '/admin/user/page',
+const AdminUserRouteRoute = AdminUserRouteRouteImport.update({
+  id: '/admin/user',
+  path: '/admin/user',
   getParentRoute: () => rootRouteImport,
 } as any)
-const AdminPostPageRoute = AdminPostPageRouteImport.update({
-  id: '/admin/post/page',
-  path: '/admin/post/page',
+const AdminPostRouteRoute = AdminPostRouteRouteImport.update({
+  id: '/admin/post',
+  path: '/admin/post',
   getParentRoute: () => rootRouteImport,
 } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/admin/post/page': typeof AdminPostPageRoute
-  '/admin/user/page': typeof AdminUserPageRoute
+  '/admin/post': typeof AdminPostRouteRoute
+  '/admin/user': typeof AdminUserRouteRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/admin/post/page': typeof AdminPostPageRoute
-  '/admin/user/page': typeof AdminUserPageRoute
+  '/admin/post': typeof AdminPostRouteRoute
+  '/admin/user': typeof AdminUserRouteRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/admin/post/page': typeof AdminPostPageRoute
-  '/admin/user/page': typeof AdminUserPageRoute
+  '/admin/post': typeof AdminPostRouteRoute
+  '/admin/user': typeof AdminUserRouteRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/admin/post/page' | '/admin/user/page'
+  fullPaths: '/' | '/admin/post' | '/admin/user'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/admin/post/page' | '/admin/user/page'
-  id: '__root__' | '/' | '/admin/post/page' | '/admin/user/page'
+  to: '/' | '/admin/post' | '/admin/user'
+  id: '__root__' | '/' | '/admin/post' | '/admin/user'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  AdminPostPageRoute: typeof AdminPostPageRoute
-  AdminUserPageRoute: typeof AdminUserPageRoute
+  AdminPostRouteRoute: typeof AdminPostRouteRoute
+  AdminUserRouteRoute: typeof AdminUserRouteRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -68,18 +68,18 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/admin/user/page': {
-      id: '/admin/user/page'
-      path: '/admin/user/page'
-      fullPath: '/admin/user/page'
-      preLoaderRoute: typeof AdminUserPageRouteImport
+    '/admin/user': {
+      id: '/admin/user'
+      path: '/admin/user'
+      fullPath: '/admin/user'
+      preLoaderRoute: typeof AdminUserRouteRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/admin/post/page': {
-      id: '/admin/post/page'
-      path: '/admin/post/page'
-      fullPath: '/admin/post/page'
-      preLoaderRoute: typeof AdminPostPageRouteImport
+    '/admin/post': {
+      id: '/admin/post'
+      path: '/admin/post'
+      fullPath: '/admin/post'
+      preLoaderRoute: typeof AdminPostRouteRouteImport
       parentRoute: typeof rootRouteImport
     }
   }
@@ -87,8 +87,8 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  AdminPostPageRoute: AdminPostPageRoute,
-  AdminUserPageRoute: AdminUserPageRoute,
+  AdminPostRouteRoute: AdminPostRouteRoute,
+  AdminUserRouteRoute: AdminUserRouteRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

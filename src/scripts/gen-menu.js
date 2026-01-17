@@ -25,7 +25,7 @@ function scan(dir, basePath = "") {
         name: folder.name,
         children: children.length > 0 ? children : null,
         ...(hasIndex && children.length === 0
-          ? { link: `/${currentPath}/page` }
+          ? { link: `/${currentPath}` }
           : {})
       };
     });

@@ -9,6 +9,7 @@ export const postColumns = [
   columnHelper.accessor('id', {
     cell: (info) => info.getValue(),
     footer: (info) => info.column.id,
+    header: "ID",
     meta: {
       label: "ID",
     }

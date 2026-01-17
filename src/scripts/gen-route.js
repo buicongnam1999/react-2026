@@ -13,6 +13,8 @@ if (args.length === 0) {
 
 const routesRoot = path.resolve("src/routes")
 const pagesRoot = path.resolve("src/pages")
+const hooksRoot = path.resolve("src/hooks")
+const servicesRoot = path.resolve("src/services")
 
 let pathParts = []
 let name = ""
@@ -72,13 +74,8 @@ export const Route = createFileRoute("${routeUrl}")({
 let pageDir = ""
 let pageFile = ""
 
-if (isNestedPage) {
-  pageDir = path.join(pagesRoot, ...pathParts)
-  pageFile = path.join(pageDir, `${name}.tsx`)
-} else {
-  pageDir = path.join(pagesRoot, ...pathParts, name)
-  pageFile = path.join(pageDir, "index.tsx")
-}
+pageDir = path.join(pagesRoot, ...pathParts)
+pageFile = path.join(pageDir, `${name}.tsx`)
 
 fs.mkdirSync(pageDir, { recursive: true })
 
@@ -92,11 +89,46 @@ if (!fs.existsSync(pageFile)) {
   )
 }
 
+/* ================= SERVICES ================= */
+
+let serviceDir = ""
+let serviceFile = ""
+
+serviceDir = path.join(servicesRoot)
+serviceFile = path.join(serviceDir, `${name}.api.ts`)
+
+fs.mkdirSync(serviceDir, { recursive: true })
+
+if (!fs.existsSync(serviceFile)) {
+  fs.writeFileSync(
+    serviceFile,
+    ""
+  )
+}
+
+/* ================= HOOKS ================= */
+
+let hookDir = ""
+let hookFile = ""
+let hookName = name.charAt(0).toUpperCase() + name.slice(1, name.length)
+
+hookDir = path.join(hooksRoot)
+hookFile = path.join(hookDir, `use${hookName}.ts`)
+
+fs.mkdirSync(hookDir, { recursive: true })
+
+if (!fs.existsSync(hookFile)) {
+  fs.writeFileSync(
+    hookFile,
+    ""
+  )
+}
+
 console.log("✅ Generated & linked:")
 console.log(routeFile)
 console.log(pageFile)
-
-
+console.log(hookFile)
+console.log(serviceFile)
 
 
 /* ================= UTILS ================= */

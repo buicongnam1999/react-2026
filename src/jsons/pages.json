@@ -5,12 +5,12 @@
       {
         "name": "post",
         "children": null,
-        "link": "/admin/post/page"
+        "link": "/admin/post"
       },
       {
         "name": "user",
         "children": null,
-        "link": "/admin/user/page"
+        "link": "/admin/user"
       }
     ]
   }

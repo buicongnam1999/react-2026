@@ -1,4 +1,6 @@
 import { flexRender, type Table as TanStackTTable } from "@tanstack/react-table";
+import { ArrowDown, ArrowUp } from "lucide-react";
+import { PaginationTable } from "./pagination-table";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "./ui/table";
 
 interface IDynamicTableProps<TData> {
@@ -24,7 +26,7 @@ export const DynamicTable = <TData,>({ table }: IDynamicTableProps<TData>) => {
                                                 <div
                                                     className={
                                                         header.column.getCanSort()
-                                                            ? 'cursor-pointer select-none'
+                                                            ? 'cursor-pointer select-none flex items-center gap-1'
                                                             : ''
                                                     }
                                                     onClick={header.column.getToggleSortingHandler()}
@@ -43,8 +45,8 @@ export const DynamicTable = <TData,>({ table }: IDynamicTableProps<TData>) => {
                                                         header.getContext(),
                                                     )}
                                                     {{
-                                                        asc: ' 🔼',
-                                                        desc: ' 🔽',
+                                                        asc: <ArrowDown size={16} />,
+                                                        desc: <ArrowUp size={16} />,
                                                     }[header.column.getIsSorted() as string] ?? null}
                                                 </div>
                                             )}
@@ -72,6 +74,9 @@ export const DynamicTable = <TData,>({ table }: IDynamicTableProps<TData>) => {
                         })}
                     </TableBody>
                 </Table>
+            </div>
+            <div className="mt-[25px] ml-auto">
+                <PaginationTable table={table} />
             </div>
         </div>
 
