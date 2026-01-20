@@ -11,11 +11,11 @@ export default function Navbar() {
         <nav className="flex-1 p-1 overflow-y-auto">
             {pagesData.map((item) => (
                 <Collapsible defaultOpen className="pl-4 group/collapsible">
-                    <CollapsibleTrigger className="w-full group flex items-center gap-2 py-2 cursor-pointer">
-                        <ChevronRight className="h-4 w-4 group-data-[state=open]:rotate-90 transition-transform" />
-                        <span className="flex items-center gap-2">
+                    <CollapsibleTrigger className="w-full group flex items-center justify-between py-2 pr-[20px] cursor-pointer">
+                        <span className="flex items-center gap-2 font-bold">
                             {item.name}
                         </span>
+                        <ChevronRight className="h-5 w-5 group-data-[state=open]:rotate-90 transition-transform" />
                     </CollapsibleTrigger>
                     <CollapsibleContent>
                         {item.children?.map((child) => (
