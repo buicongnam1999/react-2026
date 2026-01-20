@@ -13,5 +13,20 @@
         "link": "/admin/user"
       }
     ]
+  },
+  {
+    "name": "components",
+    "children": [
+      {
+        "name": "chart",
+        "children": null,
+        "link": "/components/chart"
+      },
+      {
+        "name": "table",
+        "children": null,
+        "link": "/components/table-dynamic"
+      }
+    ]
   }
 ]

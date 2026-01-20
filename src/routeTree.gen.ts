@@ -10,12 +10,25 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as ComponentsTableDynamicRouteRouteImport } from './routes/components/table-dynamic.route'
+import { Route as ComponentsChartRouteRouteImport } from './routes/components/chart.route'
 import { Route as AdminUserRouteRouteImport } from './routes/admin/user.route'
 import { Route as AdminPostRouteRouteImport } from './routes/admin/post.route'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ComponentsTableDynamicRouteRoute =
+  ComponentsTableDynamicRouteRouteImport.update({
+    id: '/components/table-dynamic',
+    path: '/components/table-dynamic',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ComponentsChartRouteRoute = ComponentsChartRouteRouteImport.update({
+  id: '/components/chart',
+  path: '/components/chart',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AdminUserRouteRoute = AdminUserRouteRouteImport.update({
@@ -33,30 +46,54 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/admin/post': typeof AdminPostRouteRoute
   '/admin/user': typeof AdminUserRouteRoute
+  '/components/chart': typeof ComponentsChartRouteRoute
+  '/components/table-dynamic': typeof ComponentsTableDynamicRouteRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/admin/post': typeof AdminPostRouteRoute
   '/admin/user': typeof AdminUserRouteRoute
+  '/components/chart': typeof ComponentsChartRouteRoute
+  '/components/table-dynamic': typeof ComponentsTableDynamicRouteRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/admin/post': typeof AdminPostRouteRoute
   '/admin/user': typeof AdminUserRouteRoute
+  '/components/chart': typeof ComponentsChartRouteRoute
+  '/components/table-dynamic': typeof ComponentsTableDynamicRouteRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/admin/post' | '/admin/user'
+  fullPaths:
+    | '/'
+    | '/admin/post'
+    | '/admin/user'
+    | '/components/chart'
+    | '/components/table-dynamic'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/admin/post' | '/admin/user'
-  id: '__root__' | '/' | '/admin/post' | '/admin/user'
+  to:
+    | '/'
+    | '/admin/post'
+    | '/admin/user'
+    | '/components/chart'
+    | '/components/table-dynamic'
+  id:
+    | '__root__'
+    | '/'
+    | '/admin/post'
+    | '/admin/user'
+    | '/components/chart'
+    | '/components/table-dynamic'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AdminPostRouteRoute: typeof AdminPostRouteRoute
   AdminUserRouteRoute: typeof AdminUserRouteRoute
+  ComponentsChartRouteRoute: typeof ComponentsChartRouteRoute
+  ComponentsTableDynamicRouteRoute: typeof ComponentsTableDynamicRouteRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -66,6 +103,20 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/components/table-dynamic': {
+      id: '/components/table-dynamic'
+      path: '/components/table-dynamic'
+      fullPath: '/components/table-dynamic'
+      preLoaderRoute: typeof ComponentsTableDynamicRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/components/chart': {
+      id: '/components/chart'
+      path: '/components/chart'
+      fullPath: '/components/chart'
+      preLoaderRoute: typeof ComponentsChartRouteRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/admin/user': {
@@ -89,6 +140,8 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AdminPostRouteRoute: AdminPostRouteRoute,
   AdminUserRouteRoute: AdminUserRouteRoute,
+  ComponentsChartRouteRoute: ComponentsChartRouteRoute,
+  ComponentsTableDynamicRouteRoute: ComponentsTableDynamicRouteRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
