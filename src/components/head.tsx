@@ -11,7 +11,7 @@ export default function Header() {
 
   return (
     <div>
-      <header className="p-4 flex items-center bg-gray-800 text-white shadow-lg">
+      <header className="p-4 flex items-center bg-sky-600 text-white shadow-lg">
         <Button
           onClick={() => setIsOpen(true)}
           className="p-2 hover:bg-gray-300 rounded-lg transition-colors cursor-pointer bg-white text-black"
@@ -69,14 +69,14 @@ export default function Header() {
       </header>
 
       <aside
-        className={`fixed top-0 left-0 h-full w-80 bg-gray-900 text-white shadow-2xl z-50 transform transition-transform duration-300 ease-in-out flex flex-col ${isOpen ? 'translate-x-0' : '-translate-x-full'
+        className={`fixed top-0 left-0 h-full w-80 bg-white text-black shadow-2xl z-50 transform transition-transform duration-300 ease-in-out flex flex-col ${isOpen ? 'translate-x-0' : '-translate-x-full'
           }`}
       >
         <div className="flex items-center justify-between p-4 border-b border-gray-700">
           <h2 className="text-xl font-bold">Navigation</h2>
           <Button
             onClick={() => setIsOpen(false)}
-            className="p-2 hover:bg-gray-300 rounded-lg transition-colors cursor-pointer bg-white text-black"
+            className="p-2 hover:bg-sky-700 bg-sky-600 rounded-lg transition-colors cursor-pointer text-white"
             aria-label="Close menu"
           >
             <X size={30} />

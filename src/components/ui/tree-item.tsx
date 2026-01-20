@@ -28,16 +28,16 @@ export default function TreeItem({ name, children, link }: ITreeItemProps) {
     }
 
     return (
-        <div className="flex items-center gap-2 pl-8">
+        <div className="flex items-center gap-2 pl-4">
             {
                 link ? <Link
                     to={link}
-                    className="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-800 transition-colors mb-1 w-full"
+                    className="flex items-center gap-3 p-3 rounded-lg hover:bg-sky-600 hover:text-white transition-colors mb-1 w-full"
                     activeProps={{
                         className:
-                            'flex items-center gap-3 p-3 rounded-lg bg-cyan-600 hover:bg-cyan-700 transition-colors mb-2',
+                            'flex items-center gap-3 p-3 rounded-lg bg-sky-600 transition-colors mb-2 text-white',
                     }}>
-                    <span className="font-medium">{name}</span>
+                    <span className="font-normal">{name}</span>
                 </Link> : <span className="mb-1">{name}</span>
             }
         </div>
